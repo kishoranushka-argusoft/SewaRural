@@ -86,7 +86,7 @@ const Samples = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
           <div className="bg-white rounded-2xl shadow-sm border border-green-100 overflow-hidden flex flex-col">
             <div className="px-4 py-3 bg-[#064848] text-white flex items-center justify-between">
               <h2 className="text-sm md:text-base font-semibold">

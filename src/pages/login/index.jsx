@@ -1,12 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import doctorimg from "../../assets/images/doctorimg.jpg";
 import Layout from "../../layout";
-import medplatlogo from "../../assets/images/medplatlogo.png";
-import sewarurallogo from "../../assets/images/sewa-ruralLOGO.png";
-import techologo from "../../assets/images/techoLOGO.ico";
 import { Download } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
+const API_BASE_URL = "http://localhost:8000/api";
 const Login = () => {
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/login/`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const msg =
+          data.detail || "Invalid username or password. Please try again.";
+        toast.error(msg);
+        throw new Error(msg);
+      }
+
+      toast.success("Login successful!");
+      navigate("/conversationdashboard");
+      console.log("Login successful!");
+    } catch (err) {
+      console.error(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 ">
       <Layout>
@@ -20,37 +58,38 @@ const Login = () => {
 
           <div className="w-full md:w-1/2 flex items-center justify-center py-10 px-6 md:px-12">
             <div className="w-full max-w-sm">
-              <div className=" flex items-center justify-center mb-6 ">
-                <img className="w-40" src={medplatlogo} alt="" />
-              </div>
-              <h1 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-1">
+              <h1 className="text-2xl md:text-3xl font-semibold text-[#064848] mb-1">
                 Login
               </h1>
-              <p className="text-sm text-slate-500 mb-8">
+              <p className="text-sm text-[#06484880] mb-8">
                 Log in to your account.
               </p>
 
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={handleSubmit}>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">
+                  <label className="text-sm font-medium text-[#064848]">
                     username
                   </label>
                   <input
                     type="text"
                     placeholder="Enter your email"
-                    className="w-full rounded-full border border-slate-200 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full rounded-full border border-[#06484820] px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-700">
+                  <label className="text-sm font-medium text-[#064848]">
                     Password
                   </label>
                   <div className="relative">
                     <input
                       type="password"
                       placeholder="Enter your password"
-                      className="w-full rounded-full border border-slate-200 px-4 py-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full rounded-full border border-[#06484820] px-4 py-2.5 pr-10 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                 </div>
@@ -58,27 +97,34 @@ const Login = () => {
                 <div className="flex justify-end">
                   <button
                     type="button"
-                    className="text-xs text-blue-600 hover:underline"
+                    className="text-xs text-[#064848] hover:underline"
                   >
                     Forgot Password?
                   </button>
                 </div>
 
-                <button
+                {/* <button
                   type="submit"
-                  className="w-full rounded-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2.5 mt-2 shadow-md transition"
+                  className="w-full rounded-full bg-[#064848] hover:bg-[#097171] text-white text-sm font-medium py-2.5 mt-2 shadow-md transition"
                 >
                   Log In
+                </button> */}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full rounded-full bg-[#064848] hover:bg-[#097171] disabled:opacity-70 disabled:cursor-not-allowed text-white text-sm font-medium py-2.5 mt-2 shadow-md transition"
+                >
+                  {loading ? "Logging in..." : "Log In"}
                 </button>
 
                 <button
                   type="button"
-                  className="w-full rounded-full border border-slate-200 bg-white text-sm font-medium py-2.5 flex items-center justify-center gap-2 shadow-sm hover:bg-slate-50 transition"
+                  className="w-full rounded-full border border-[#06484820] bg-white text-sm font-medium py-2.5 flex items-center justify-center gap-2 shadow-sm hover:bg-[#06484810] transition"
                 >
                   <span className=" rounded-full bg-white text-black  flex items-center justify-center text-[12px]">
                     (New)
                   </span>
-                  <p className="text-blue-500 flex justify-between items-center gap-1">
+                  <p className="text-blue-700 flex justify-between items-center gap-1">
                     <Download size={14} />
                     Download Mobile Application (4.1.38)
                   </p>
@@ -90,13 +136,6 @@ const Login = () => {
 
               <div className="relative h-full flex flex-col justify-between p-8 text-white">
                 <div />
-
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-full flex items-center justify-center gap-8">
-                    <img src={sewarurallogo} alt="" className="w-24" />
-                    <img src={techologo} alt="" />
-                  </div>
-                </div>
               </div>
             </div>
           </div>
