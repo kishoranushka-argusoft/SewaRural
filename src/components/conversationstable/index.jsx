@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { conversations } from "./data";
+import { useNavigate } from "react-router-dom";
 import {
   Check,
   CircleEllipsis,
@@ -44,6 +45,9 @@ const ConversationsTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filterOpen, setFilterOpen] = useState(false);
   const [filterType, setFilterType] = useState("All");
+  const [openMenuId, setOpenMenuId] = useState(null);
+
+  const navigate = useNavigate(); 
 
   const filteredConversations = useMemo(() => {
     if (filterType === "All" || filterType === "Custom Range") {
@@ -75,7 +79,7 @@ const ConversationsTable = () => {
 
     if (filterType === "Last 7 Days") {
       const sevenDaysAgo = new Date(startOfToday);
-      sevenDaysAgo.setDate(startOfToday.getDate() - 6); 
+      sevenDaysAgo.setDate(startOfToday.getDate() - 6);
       return conversations.filter((c) => {
         const d = parseDateTime(c.createdOn);
         return d && d >= sevenDaysAgo && d <= now;
@@ -191,9 +195,29 @@ const ConversationsTable = () => {
                     )}
                   </td>
                   <td className="px-4 py-3 text-center">
-                    <button className="inline-flex h-8 w-8 items-center justify-center text-slate-600 hover:bg-[#06484820]">
+                    <button
+                      onClick={() =>
+                        setOpenMenuId((prev) =>
+                          prev === item.id ? null : item.id
+                        )
+                      }
+                      className="inline-flex h-8 w-8 items-center justify-center text-slate-600 hover:bg-[#06484820]"
+                    >
                       <CircleEllipsis size={20} />
                     </button>
+                    {openMenuId === item.id && (
+                      <div className="absolute right-40 mt-2 w-32 bg-white border border-slate-200 rounded-lg shadow-md z-10">
+                        <button
+                          className="w-full text-center px-3 py-2 text-xs text-[#064848] hover:bg-[#06484810]"
+                          onClick={() => {
+                            setOpenMenuId(null);
+                            navigate(`/summary/${item.id}`); 
+                          }}
+                        >
+                          View summary
+                        </button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}

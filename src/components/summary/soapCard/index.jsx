@@ -1,7 +1,8 @@
 import React from 'react'
-import { SoapCardData } from './data';
+import { getSoapCardData } from './data';
 
-const SoapCard = () => {
+const SoapCard = ({id}) => {
+  const SoapCardData = getSoapCardData(id);
   return (
     <div className='grid grid-cols-1 md:grid-cols-4 gap-8 '>
       {SoapCardData.map((ele) => (

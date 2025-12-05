@@ -1,7 +1,21 @@
-import React from 'react'
-import { MessageSquareText, ListChecks } from 'lucide-react';
+import React from "react";
+import { MessageSquareText, ListChecks } from "lucide-react";
+import { ConversationTranscriptData } from "./data";
 
-const ConversationAndDiagnosis = () => {
+const ConversationAndDiagnosis = ({ id }) => {
+  const data = ConversationTranscriptData[id];
+  if (!data) {
+    return (
+      <section className="mt-8">
+        <p className="text-sm text-gray-500">
+          No conversation data found for this ID.
+        </p>
+      </section>
+    );
+  }
+
+  const { transcriptData, mostLikelyDisease, likelyDisease } = data;
+
   return (
     <section className="flex gap-8 mt-8">
       <div className="bg-white rounded-xl md:w-2/3 border border-[#06484810] shadow-sm p-4 md:p-5">
@@ -16,8 +30,7 @@ const ConversationAndDiagnosis = () => {
           </h2>
         </div>
         <div className="rounded-xl bg-[06484810] border border-[#06484820] p-3 text-xs md:text-sm text-[#064848] leading-relaxed">
-          PT COMPLAIN OF COLD, COUGH, FEVER FOR LAST NIGHT; RS: CLEAR, BP:
-          116/70, P:90, ADVICE: DIOMINIC DCA &amp; GRILINTUS BM
+          {transcriptData}
         </div>
       </div>
 
@@ -38,14 +51,19 @@ const ConversationAndDiagnosis = () => {
             <p className="text-[11px] uppercase tracking-wide text-[#064848] font-semibold mb-1">
               Most Likely Disease
             </p>
-            <label className="flex items-center gap-2 text-[#064848]">
-              <input
-                type="checkbox"
-                defaultChecked
-                className="accent-[#064848]"
-              />
-              <span>Acute Bronchitis</span>
-            </label>
+            {mostLikelyDisease.map((disease, index) => (
+              <label
+                key={index}
+                className="flex items-center gap-2 text-[#064848]"
+              >
+                <input
+                  type="checkbox"
+                  defaultChecked
+                  className="accent-[#064848]"
+                />
+                <span>{disease}</span>
+              </label>
+            ))}
           </div>
 
           <div>
@@ -53,28 +71,25 @@ const ConversationAndDiagnosis = () => {
               Likely Diseases
             </p>
             <div className="space-y-1">
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  defaultChecked
-                  className="accent-[#064848]"
-                />
-                <span>Influenza</span>
-              </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  defaultChecked
-                  className="accent-[#064848]"
-                />
-                <span>Pneumonia</span>
-              </label>
+              {likelyDisease.map((disease, index) => (
+                <label
+                  key={index}
+                  className="flex items-center gap-2 text-[#064848]"
+                >
+                  <input
+                    type="checkbox"
+                    defaultChecked
+                    className="accent-[#064848]"
+                  />
+                  <span>{disease}</span>
+                </label>
+              ))}
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
 
-export default ConversationAndDiagnosis
+export default ConversationAndDiagnosis;

@@ -32,7 +32,7 @@ const App = () => {
           }
         />
         <Route
-          path="/summary"
+          path="/summary/:id"
           element={
             <ProtectedRoute>
               <Summary />

@@ -5,9 +5,11 @@ import Header from "../../components/summary/header";
 import ConversationAndDiagnosis from "../../components/summary/conversationAndDiagnosis";
 import ClinicalNotes from "../../components/summary/clinicalNotes";
 import SoapNotes from "../../components/summary/soapNotes";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+
 
 const Summary = () => {
+  const {id} = useParams()
   return (
     <div className="min-h-screen bg-gray-50 ">
       <div className="w-full border-b border-[#06484820] bg-white">
@@ -24,10 +26,10 @@ const Summary = () => {
         </div>
       </div>
       <Layout>
-        <Header />
-        <ConversationAndDiagnosis />
-        <ClinicalNotes />
-        <SoapNotes />
+        <Header id={id} />
+        <ConversationAndDiagnosis id={id} />
+        <ClinicalNotes id={id} />
+        <SoapNotes id={id} />
       </Layout>
     </div>
   );

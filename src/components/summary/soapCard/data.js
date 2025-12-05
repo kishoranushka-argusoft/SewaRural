@@ -1,38 +1,150 @@
-import { CircleCheckBig, User, Logs, NotepadText } from "lucide-react"
+import { CircleCheckBig, User, Logs, NotepadText } from "lucide-react";
+
+export const SoapCardDataById = {
+  23: [
+    {
+      title: "Subjective",
+      colorClass: "bg-blue-50",
+      icon: User,
+      items: [
+        "23Patient mentioned storing and transcribing recordings.",
+        "Patient demonstrated using a demo for recording and pausing.",
+      ],
+    },
+    {
+      title: "Objective",
+      colorClass: "bg-pink-50",
+      icon: Logs,
+      items: [
+        "No specific medical symptoms or physical examination findings mentioned.",
+      ],
+    },
+    {
+      title: "Assessment",
+      colorClass: "bg-green-50",
+      icon: CircleCheckBig,
+      items: [
+        "No medical assessment possible due to lack of relevant information.",
+      ],
+    },
+    {
+      title: "Plan    ",
+      colorClass: "bg-orange-50",
+      icon: NotepadText,
+      items: [
+        "Since no medical information was provided, no specific plan can be formulated.",
+      ],
+    },
+  ],
+  24: [
+    {
+      title: "Subjective",
+      colorClass: "bg-blue-50",
+      icon: User,
+      items: [
+        "24Patient mentioned storing and transcribing recordings.",
+        "Patient demonstrated using a demo for recording and pausing.",
+      ],
+    },
+    {
+      title: "Objective",
+      colorClass: "bg-pink-50",
+      icon: Logs,
+      items: [
+        "No specific medical symptoms or physical examination findings mentioned.",
+      ],
+    },
+    {
+      title: "Assessment",
+      colorClass: "bg-green-50",
+      icon: CircleCheckBig,
+      items: [
+        "No medical assessment possible due to lack of relevant information.",
+      ],
+    },
+    {
+      title: "Plan    ",
+      colorClass: "bg-orange-50",
+      icon: NotepadText,
+      items: [
+        "Since no medical information was provided, no specific plan can be formulated.",
+      ],
+    },
+  ],
+  25: [
+    {
+      title: "Subjective",
+      colorClass: "bg-blue-50",
+      icon: User,
+      items: [
+        "25Patient mentioned storing and transcribing recordings.",
+        "Patient demonstrated using a demo for recording and pausing.",
+      ],
+    },
+    {
+      title: "Objective",
+      colorClass: "bg-pink-50",
+      icon: Logs,
+      items: [
+        "No specific medical symptoms or physical examination findings mentioned.",
+      ],
+    },
+    {
+      title: "Assessment",
+      colorClass: "bg-green-50",
+      icon: CircleCheckBig,
+      items: [
+        "No medical assessment possible due to lack of relevant information.",
+      ],
+    },
+    {
+      title: "Plan    ",
+      colorClass: "bg-orange-50",
+      icon: NotepadText,
+      items: [
+        "Since no medical information was provided, no specific plan can be formulated.",
+      ],
+    },
+  ],
+
+  default: [
+    {
+      title: "Subjective",
+      colorClass: "bg-blue-50",
+      icon: User,
+      items: [
+        "Patient mentioned storing and transcribing recordings.",
+        "Patient demonstrated using a demo for recording and pausing.",
+      ],
+    },
+    {
+      title: "Objective",
+      colorClass: "bg-pink-50",
+      icon: Logs,
+      items: [
+        "No specific medical symptoms or physical examination findings mentioned.",
+      ],
+    },
+    {
+      title: "Assessment",
+      colorClass: "bg-green-50",
+      icon: CircleCheckBig,
+      items: [
+        "No medical assessment possible due to lack of relevant information.",
+      ],
+    },
+    {
+      title: "Plan",
+      colorClass: "bg-orange-50",
+      icon: NotepadText,
+      items: [
+        "Since no medical information was provided, no specific plan can be formulated.",
+      ],
+    },
+  ],
+};
 
 
-export const SoapCardData = [
-  {
-    title: "Subjective",
-    colorClass: "bg-blue-50",
-    icon: User,
-    items: [
-      "Patient mentioned storing and transcribing recordings.",
-      "Patient demonstrated using a demo for recording and pausing.",
-    ],
-  },
-  {
-    title: "Objective",
-    colorClass: "bg-pink-50",
-    icon: Logs,
-    items: [
-      "No specific medical symptoms or physical examination findings mentioned.",
-    ],
-  },
-  {
-    title: "Assessment",
-    colorClass: "bg-green-50",
-    icon: CircleCheckBig,
-    items: [
-      "No medical assessment possible due to lack of relevant information.",
-    ],
-  },
-  {
-    title: "Plan    ",
-    colorClass: "bg-orange-50",
-    icon: NotepadText,
-    items: [
-      "Since no medical information was provided, no specific plan can be formulated.",
-    ],
-  },
-];
+export const getSoapCardData = (id) => {
+  return SoapCardDataById[id] || SoapCardDataById.default;
+};
